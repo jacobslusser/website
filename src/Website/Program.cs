@@ -8,7 +8,31 @@ namespace Website
             var app = builder.Build();
 
             app.MapGet("/", () => """
-                Wait, what?, 4/15/2024
+                Some Tips on Restructuring Projects in Git, 4/15/2024
+
+                I like my Git history to track files that may get renamed or moved. However, when renaming things directly in the Visual
+                Studio Solution Explorer, it seems a roll of the dice whether you will record a Git rename operation or whether it will
+                show up as a delete (of the old name) and create (of the new name) -- and break the continuity of the file history.
+
+                What I do is close out of Visual Studio and drop down to the command line.
+                  1. Do all my `git mv` operations, i.e. rename the solution file or projects or any restructuring and then commit that change.
+                     That will give a clean commit of just the moving or renaming of files.
+                  2. Then open the folder in VSCode and manually edit the .sln file and anything else needed to fix the paths and get things
+                     compiling again. Then commit that as its own change.
+
+                You can see that I did that approach here to rename my new WebApplication1 project to Website. Additionally I like to keep the
+                .sln file in the repository root and any projects under a folder named `/src` with the folder names matching the project names.
+                If the website was further along, I would show this with visuals, but we're a long way away from displaying images, so you'll
+                have to look at the commit history to see what I mean:
+
+                - The rename/move commit: https://github.com/jacobslusser/website/commit/6a341d71b9e1a54eca9a973295b7f3c8e7b468fb
+                - The update paths commit: https://github.com/jacobslusser/website/commit/5c29bd82bd7db317c7e33c3ed53d7d6b2a9f9b0f
+
+                Assuming everything went well, I then open the solution again in Visual Studio.
+
+                ---
+
+                Wait, What?, 4/15/2024
 
                 If you have found this website in its present state, you may be wondering, what is going on? At the moment, not much! LOL.
                 Let me explain. Right now, there is no website. Nothing. This is (nearly) the most minimal web project that can exist.
@@ -24,12 +48,12 @@ namespace Website
                 I want to update. I haven't even named the project. It still has the default name of WebApplication1.
 
                 My update process looks like this:
-                1. I make my changes in the code,
-                2. Run the following to compile into a docker image: `dotnet publish -t:PublishContainer`,
-                3. Export that docker image to a tar file using: `docker save -o ./webapplication1.tar webapplication1:latest`,
-                4. Copy that to my host Linux machine: `scp webapplication1.tar jacob@192.168.4.81:/home/jacob/website`,
-                5. Import the docker image to the local registry: `sudo docker load -i ./webapplication1.tar`,
-                6. And finally recompose the docker container: `sudo docker compose up -d`.
+                  1. I make my changes in the code,
+                  2. Run the following to compile into a docker image: `dotnet publish -t:PublishContainer`,
+                  3. Export that docker image to a tar file using: `docker save -o ./webapplication1.tar webapplication1:latest`,
+                  4. Copy that to my host Linux machine: `scp webapplication1.tar jacob@192.168.4.81:/home/jacob/website`,
+                  5. Import the docker image to the local registry: `sudo docker load -i ./webapplication1.tar`,
+                  6. And finally recompose the docker container: `sudo docker compose up -d`.
 
                 It's a whole thing...
 
