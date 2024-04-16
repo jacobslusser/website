@@ -47,7 +47,7 @@ public class Program
             // Get Markdown files
             var files = env.ContentRootFileProvider.GetDirectoryContents("/Entries")
                 .Where(f => f.Exists && f.Name.EndsWith(".md", StringComparison.OrdinalIgnoreCase))
-                .Reverse();
+                .OrderByDescending(f => f.Name);
 
             // Write each Markdown file as HTML
             foreach (var f in files)
