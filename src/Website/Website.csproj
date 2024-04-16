@@ -12,4 +12,15 @@
     <!--<PublishTrimmed>true</PublishTrimmed>-->
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Markdig" Version="0.37.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Copy .md files in the Entries folder to output -->
+    <None Update="Entries\**\*.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
